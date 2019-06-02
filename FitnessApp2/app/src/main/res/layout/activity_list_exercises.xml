@@ -9,7 +9,8 @@
 
     <TextView
         android:id="@+id/title"
-        android:text="VIEW EXERCISES"
+        android:text="EXERCISES"
+        android:fontFamily="sans-serif-light"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:gravity="center_vertical|center_horizontal"
@@ -23,6 +24,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-
 
 </RelativeLayout>

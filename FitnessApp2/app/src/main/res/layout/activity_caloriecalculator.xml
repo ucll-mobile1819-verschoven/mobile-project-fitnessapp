@@ -5,7 +5,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/bgimage">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -14,6 +17,7 @@
     <TextView
         android:id="@+id/title"
         android:text="CALCULATOR"
+        android:fontFamily="sans-serif-light"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:gravity="center_vertical|center_horizontal"
@@ -26,7 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
-        android:text="Note: Enter the desired amount of repetitions from 0-99"/>
+        android:textStyle="bold"
+        android:text="Note: Enter the desired amount of repetitions up to a maximum of 99"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -34,15 +39,162 @@
             android:layout_height="wrap_content"
             >
             <EditText
+                android:longClickable="false"
+                android:cursorVisible="false"
+                android:id="@+id/bench"
                 android:hint="Bench press"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:drawablePadding="30dp"
                 android:textSize="30dp"
-                android:drawableLeft="@drawable/icons8_bench_press_100px"/>
+                android:imeOptions="actionDone"
+                android:drawableLeft="@drawable/icons8_bench_press_75px"/>
+
         </LinearLayout>
-</LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:longClickable="false"
+                android:cursorVisible="false"
+                android:id="@+id/dumbell"
+                android:hint="Dumbbel curl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:drawablePadding="30dp"
+                android:textSize="30dp"
+                android:imeOptions="actionDone"
+                android:drawableLeft="@drawable/icons8_curls_with_dumbbells_75px"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:longClickable="false"
+                android:cursorVisible="false"
+                android:id="@+id/deadlift"
+                android:hint="Deadlift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:drawablePadding="30dp"
+                android:textSize="30dp"
+                android:imeOptions="actionDone"
+                android:drawableLeft="@drawable/icons8_deadlift_75px"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:longClickable="false"
+                android:cursorVisible="false"
+                android:id="@+id/pullup"
+                android:hint="Pull-up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:drawablePadding="30dp"
+                android:textSize="30dp"
+                android:imeOptions="actionDone"
+                android:drawableLeft="@drawable/icons8_pullups_75px"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:longClickable="false"
+                android:cursorVisible="false"
+                android:id="@+id/pushup"
+                android:hint="Push-up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:drawablePadding="30dp"
+                android:textSize="30dp"
+                android:imeOptions="actionDone"
+                android:drawableLeft="@drawable/icons8_pushups_75px"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:longClickable="false"
+                android:cursorVisible="false"
+                android:id="@+id/situp"
+                android:hint="Sit-up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:drawablePadding="30dp"
+                android:textSize="30dp"
+                android:imeOptions="actionDone"
+                android:drawableLeft="@drawable/icons8_sit_ups_75px"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
+            >
+            <EditText
+                android:longClickable="false"
+                android:cursorVisible="false"
+                android:id="@+id/squat"
+                android:hint="Squat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:drawablePadding="30dp"
+                android:textSize="30dp"
+                android:imeOptions="actionDone"
+                android:drawableLeft="@drawable/icons8_squats_75px"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnCC"
+                android:text="CALCULATE CALORIES"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="4dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/btnbg"
+                android:layout_height="50dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/totalc"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="TOTAL CALORIES: 0"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
 </RelativeLayout>

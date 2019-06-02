@@ -12,11 +12,11 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnExercises, btnCC, btnCalendar,btnAdd, btnReduce;
-    ImageButton btnTraning;
+    Button btnExercises, btnCC, btnEasy, btnMedium, btnHard, btnAbout;
+    ImageButton btnTraining;
     TextView txtAmount;
 
-    int count = 0;
+    String difficulty = "EASY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +24,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnExercises = (Button)findViewById(R.id.btnExercises);
-        btnTraning = (ImageButton)findViewById(R.id.btnTraining);
-        btnAdd = (Button)findViewById(R.id.btnAdd);
+        btnTraining = (ImageButton)findViewById(R.id.btnTraining);
+        btnEasy = (Button)findViewById(R.id.btnEasy);
         btnCC = (Button)findViewById(R.id.btnCC);
-        btnReduce = (Button)findViewById(R.id.btnReduce);
+        btnMedium = (Button)findViewById(R.id.btnMedium);
+        btnHard = (Button)findViewById(R.id.btnHard);
         txtAmount = (TextView)findViewById(R.id.txtAmount);
+        btnAbout = (Button)findViewById(R.id.btnAbout);
 
-        txtAmount.setText("Workout time: 0 min");
-        btnReduce.setEnabled(false);
+        txtAmount.setText("WORKOUT LEVEL: "+difficulty);
+        btnEasy.setEnabled(false);
+        btnEasy.setBackgroundResource(R.drawable.btnbg);
+        btnMedium.setBackgroundResource(R.drawable.btnbgstop);
+        btnHard.setBackgroundResource(R.drawable.btnbgstop);
+
+        btnTraining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Workout.class);
+                intent.putExtra("difficulty", difficulty);
+                startActivity(intent);
+            }
+        });
+
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, About.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
+        });
 
         btnExercises.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -49,41 +72,44 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        btnEasy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
-                txtAmount.setText("Workout time:" + count + "min");
-                if (count < 1){
-                    btnReduce.setEnabled(false);
-                    btnAdd.setEnabled(true);
-                }else if (count > 59){
-                    btnReduce.setEnabled(true);
-                    btnAdd.setEnabled(false);
-                }else {
-                    btnReduce.setEnabled(true);
-                    btnAdd.setEnabled(true);
-                }
+                difficulty = "EASY";
+                txtAmount.setText("WORKOUT LEVEL: " + difficulty);
+                btnEasy.setEnabled(false);
+                btnMedium.setEnabled(true);
+                btnHard.setEnabled(true);
+                btnEasy.setBackgroundResource(R.drawable.btnbg);
+                btnMedium.setBackgroundResource(R.drawable.btnbgstop);
+                btnHard.setBackgroundResource(R.drawable.btnbgstop);
             }
         });
 
-        btnReduce.setOnClickListener(new View.OnClickListener() {
+        btnMedium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count--;
-                txtAmount.setText("Workout time:"+count+"min");
-                if (count < 1){
-                    btnReduce.setEnabled(false);
-                    btnAdd.setEnabled(true);
-                }else if (count > 59){
-                    btnReduce.setEnabled(true);
-                    btnAdd.setEnabled(false);
-                }else {
-                    btnReduce.setEnabled(true);
-                    btnAdd.setEnabled(true);
-                }
+                difficulty = "MEDIUM";
+                txtAmount.setText("WORKOUT LEVEL: "+ difficulty);
+                btnMedium.setEnabled(false);
+                btnEasy.setEnabled(true);
+                btnHard.setEnabled(true);
+                btnEasy.setBackgroundResource(R.drawable.btnbgstop);
+                btnMedium.setBackgroundResource(R.drawable.btnbg);
+                btnHard.setBackgroundResource(R.drawable.btnbgstop);
+            }
+        });
+        btnHard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                difficulty = "HARD";
+                txtAmount.setText("WORKOUT LEVEL: " + difficulty);
+                btnHard.setEnabled(false);
+                btnEasy.setEnabled(true);
+                btnMedium.setEnabled(true);
+                btnEasy.setBackgroundResource(R.drawable.btnbgstop);
+                btnMedium.setBackgroundResource(R.drawable.btnbgstop);
+                btnHard.setBackgroundResource(R.drawable.btnbg);
             }
         });
     }

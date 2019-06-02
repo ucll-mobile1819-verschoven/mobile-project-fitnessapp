@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewExercise"></activity>
-        <activity android:name=".ListExercises" />
-        <activity android:name=".CalorieCalculator"></activity>
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".ViewExercise" android:launchMode="singleTop" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ListExercises" android:launchMode="singleTop" android:screenOrientation="portrait" />
+        <activity android:name=".Workout" android:launchMode="singleTop" android:screenOrientation="portrait"></activity>
+        <activity android:name=".About" android:launchMode="singleTop" android:screenOrientation="portrait"></activity>
+        <activity android:name=".TimedWorkout" android:launchMode="singleTop" android:screenOrientation="portrait"></activity>
+        <activity android:name=".CalorieCalculator" android:launchMode="singleTop" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainActivity" android:launchMode="singleTop" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

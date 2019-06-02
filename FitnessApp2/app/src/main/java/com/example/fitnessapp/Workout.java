@@ -1,12 +1,16 @@
 package com.example.fitnessapp;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.fitnessapp.Adapter.RecyclerViewAdapter;
 import com.example.fitnessapp.Model.Exercise;
 
 import java.util.ArrayList;
@@ -14,49 +18,374 @@ import java.util.List;
 
 public class Workout extends AppCompatActivity {
 
-    List<Exercise> exerciseList = new ArrayList<>();
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView recyclerView;
-    RecyclerViewAdapter adapter;
+    ArrayList<String> intList = new ArrayList<>();
+    TextView workoutTitle;
+    ImageView imgbench, imgcurls,imgdeadlift,imgpullup,imgpushup,imgsitup,imgsquat,btnWorkout;
+    int stage1, stage2 ,stage3,stage4,stage5,stage6,stage7;
+    String difficulty;
+    boolean boolBench = false, boolCurls = false, boolDeadlift = false, boolPull = false, boolPush = false, boolSit = false, boolSquat = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_exercises);
+        setContentView(R.layout.activity_workout);
 
-        initData();
+        intList.add(0,"Empty");
+        intList.add(1,"Empty");
+        intList.add(2,"Empty");
+        intList.add(3,"Empty");
+        intList.add(4,"Empty");
+        intList.add(5,"Empty");
+        intList.add(6,"Empty");
 
-        recyclerView = (RecyclerView)findViewById(R.id.list_ex);
-        adapter = new RecyclerViewAdapter(exerciseList, getBaseContext());
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        SharedPreferences preferences = getSharedPreferences("PRESS", 0);
+        stage1 = preferences.getInt("switch_stage", 1);
+        stage2 = preferences.getInt("switch_stage", 1);
+        stage3 = preferences.getInt("switch_stage", 1);
+        stage4 = preferences.getInt("switch_stage", 1);
+        stage5 = preferences.getInt("switch_stage", 1);
+        stage6 = preferences.getInt("switch_stage", 1);
+        stage7 = preferences.getInt("switch_stage", 1);
+
+        workoutTitle = (TextView) findViewById(R.id.workoutTitle);
+        imgbench = (ImageView) findViewById(R.id.imgbench);
+        imgcurls = (ImageView) findViewById(R.id.imgcurls);
+        imgdeadlift = (ImageView) findViewById(R.id.imgdeadlift);
+        imgpullup = (ImageView) findViewById(R.id.imgpullup);
+        imgpushup = (ImageView) findViewById(R.id.imgpushup);
+        imgsitup = (ImageView) findViewById(R.id.imgsitup);
+        imgsquat = (ImageView) findViewById(R.id.imgsquat);
+        btnWorkout = (ImageView) findViewById(R.id.btnWorkout);
+
+        difficulty = getIntent().getStringExtra("difficulty");
+
+        workoutTitle.setText("SELECT EXERCISES");
+
+        imgbench.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchBenchNumbers();
+            }
+        });
+        imgcurls.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchCurlsNumbers();
+            }
+        });
+        imgdeadlift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             switchDeadliftNumbers();
+            }
+        });
+        imgpullup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              switchPullupNumbers();
+            }
+        });
+        imgpushup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               switchPushupNumbers();
+            }
+        });
+        imgsitup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               switchSitupNumbers();
+            }
+        });
+        imgsquat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               switchSquatNumbers();
+            }
+        });
+
+        btnWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(boolBench || boolCurls || boolDeadlift || boolPull || boolPush || boolSit ||boolSquat){
+                    Intent intent = new Intent(Workout.this, TimedWorkout.class);
+                    intent.putExtra("intList", intList);
+                    intent.putExtra("difficulty", difficulty);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(Workout.this, "PLEASE SELECT AT LEAST 1 WORKOUT", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void switchBenchNumbers() {
+        switch (stage1) {
+            case 1:
+                stage1 = 2;
+                setBenchImage(stage1);
+                doBench(stage1);
+                boolBench = true;
+                break;
+            case 2:
+                stage1 = 1;
+                setBenchImage(stage1);
+                doBench(stage1);
+                boolBench = false;
+                break;
+        }
+    }
+    private void switchCurlsNumbers() {
+        switch (stage2) {
+            case 1:
+                stage2 = 2;
+                setCurlsImage(stage2);
+                doCurls(stage2);
+                boolCurls = true;
+                break;
+            case 2:
+                stage2 = 1;
+                setCurlsImage(stage2);
+                doCurls(stage2);
+                boolCurls = false;
+                break;
+        }
+    }
+    private void switchDeadliftNumbers() {
+        switch (stage3) {
+            case 1:
+                stage3 = 2;
+                setDeadliftImage(stage3);
+                doDeadlift(stage3);
+                boolDeadlift = true;
+                break;
+            case 2:
+                stage3 = 1;
+                setDeadliftImage(stage3);
+                doDeadlift(stage3);
+                boolDeadlift = false;
+                break;
+        }
+    }
+    private void switchPullupNumbers() {
+        switch (stage4) {
+            case 1:
+                stage4 = 2;
+                setPullupImage(stage4);
+                doPullup(stage4);
+                boolPull = true;
+                break;
+            case 2:
+                stage4 = 1;
+                setPullupImage(stage4);
+                doPullup(stage4);
+                boolPull = false;
+                break;
+        }
+    }
+    private void switchPushupNumbers() {
+        switch (stage5) {
+            case 1:
+                stage5 = 2;
+                setPushupImage(stage5);
+                doPushup(stage5);
+                boolPush = true;
+                break;
+            case 2:
+                stage5 = 1;
+                setPushupImage(stage5);
+                doPushup(stage5);
+                boolPush = false;
+                break;
+        }
+    }
+    private void switchSitupNumbers() {
+        switch (stage6) {
+            case 1:
+                stage6 = 2;
+                setSitupImage(stage6);
+                doSitup(stage6);
+                boolSit = true;
+                break;
+            case 2:
+                stage6 = 1;
+                setSitupImage(stage6);
+                doSitup(stage6);
+                boolSit = false;
+                break;
+        }
+    }
+    private void switchSquatNumbers() {
+        switch (stage7) {
+            case 1:
+                stage7 = 2;
+                setSquatImage(stage7);
+                doSquat(stage7);
+                boolSquat = true;
+                break;
+            case 2:
+                stage7 = 1;
+                setSquatImage(stage7);
+                doSquat(stage7);
+                boolSquat = false;
+                break;
+        }
+    }
+
+    private void setBenchImage(int current) {
+        switch (current) {
+            case 1:
+                imgbench.setImageResource(R.drawable.bench);
+                break;
+            case 2:
+                imgbench.setImageResource(R.drawable.icons8_bench_press_75px);
+                break;
+        }
+    }
+    private void setCurlsImage(int current) {
+        switch (current) {
+            case 1:
+                imgcurls.setImageResource(R.drawable.curls);
+                break;
+            case 2:
+                imgcurls.setImageResource(R.drawable.icons8_curls_with_dumbbells_75px);
+                break;
+        }
+    }
+    private void setDeadliftImage(int current) {
+        switch (current) {
+            case 1:
+                imgdeadlift.setImageResource(R.drawable.deadlift);
+                break;
+            case 2:
+                imgdeadlift.setImageResource(R.drawable.icons8_deadlift_75px);
+                break;
+        }
+    }
+    private void setPullupImage(int current) {
+        switch (current) {
+            case 1:
+                imgpullup.setImageResource(R.drawable.pullup);
+                break;
+            case 2:
+                imgpullup.setImageResource(R.drawable.icons8_pullups_75px);
+                break;
+        }
+    }
+    private void setPushupImage(int current) {
+        switch (current) {
+            case 1:
+                imgpushup.setImageResource(R.drawable.pushup);
+                break;
+            case 2:
+                imgpushup.setImageResource(R.drawable.icons8_pushups_75px);
+                break;
+        }
+    }
+    private void setSitupImage(int current) {
+        switch (current) {
+            case 1:
+                imgsitup.setImageResource(R.drawable.situp);
+                break;
+            case 2:
+                imgsitup.setImageResource(R.drawable.icons8_sit_ups_75px);
+                break;
+        }
+    }
+    private void setSquatImage(int current) {
+        switch (current) {
+            case 1:
+                imgsquat.setImageResource(R.drawable.squat);
+                break;
+            case 2:
+                imgsquat.setImageResource(R.drawable.icons8_squats_75px);
+                break;
+        }
+    }
+
+    private void doBench(int current) {
+        switch (current) {
+            case 1:
+                intList.remove(0);
+                intList.add(0, "Empty");
+                break;
+            case 2:
+                intList.remove(0);
+                intList.add(0, "Bench presses");
+                break;
+        }
+    }
+    private void doCurls(int current) {
+        switch (current) {
+            case 1:
+                intList.remove(1);
+                intList.add(1, "Empty");
+                break;
+            case 2:
+                intList.remove(1);
+                intList.add(1, "Dumbell curls");
+                break;
+        }
+    }
+    private void doDeadlift(int current) {
+        switch (current) {
+            case 1:
+                intList.remove(2);
+                intList.add(2, "Empty");
+                break;
+            case 2:
+                intList.remove(2);
+                intList.add(2, "Deadlifts");
+                break;
+        }
+    }
+    private void doPullup(int current) {
+        switch (current) {
+            case 1:
+                intList.remove(3);
+                intList.add(3, "Empty");
+                break;
+            case 2:
+                intList.remove(3);
+                intList.add(3, "Pull-Ups");
+                break;
+        }
+    }
+    private void doPushup(int current) {
+        switch (current) {
+            case 1:
+                intList.remove(4);
+                intList.add(4, "Empty");
+                break;
+            case 2:
+                intList.remove(4);
+                intList.add(4, "Push-Ups");
+                break;
+        }
+    }
+    private void doSitup(int current) {
+        switch (current) {
+            case 1:
+                intList.set(5, "Empty");
+                break;
+            case 2:
+                intList.set(5, "Sit-Ups");
+                break;
+        }
+    }
+    private void doSquat(int current) {
+        switch (current) {
+            case 1:
+                intList.remove(6);
+                intList.add(6, "Empty");
+                break;
+            case 2:
+                intList.remove(6);
+                intList.add(6, "Squats");
+                break;
+        }
     }
 
 
-
-private void initData(){
-    exerciseList.add(new Exercise(R.drawable.icons8_bench_press_100px, "Bench press",
-            "The bench press is an upper-body strength-training exercise that consists of pressing a weight upwards from a supine position. The exercise works the pectoralis major as well as the supporting chest, arm, and shoulder muscles trapezii, and triceps.",
-            "The person performing the exercise lies on their back on a bench with a weight grasped in both hands. They push the weight upwards until their arms are extended. They then lower the weight to chest level."));
-    exerciseList.add(new Exercise(R.drawable.icons8_curls_with_dumbbells_100px, "Dumbell curls",
-            "The humble bicep curl is your simplest lift, and an essential ingredient in of arm exercise routine.",
-            "Weight (attached to, or used in conjunction with, an item of equipment listed above) is lifted up until the forearms are vertical with the elbows and upper arm remaining close to the body."));
-    exerciseList.add(new Exercise(R.drawable.icons8_deadlift_100px, "Deadlift",
-            "The deadlift is a weight training exercise in which a loaded barbell or bar is lifted off the ground to the level of the hips, then lowered to the ground. It is one of the three powerlifting exercises, along with the squat and bench press.",
-            "Person stands with their mid-foot under the barbell, bends over and grabs the bar with a shoulder-width grip. Knees are bended until shins touches the bar. Person lifts his chest up and straightens their lower back. Finally, it’s time to take a big breath, hold it, and stand up to the weight."));
-    exerciseList.add(new Exercise(R.drawable.icons8_pullups_100px, "Pull ups",
-            "Pull-up is an upper-body compound pulling exercise. Although it can be performed with any grip, in recent years some have used the term to refer more specifically to a pull-up performed with a palms-forward position.",
-            "Persons body is suspended by the arms, gripping something, and pulling up. As this happens, the wrists remain in neutral (straight, neither flexed nor extended) position, the elbows flex and the shoulder adducts and/or extends to bring the elbows to or sometimes behind the torso. The knees may be bent by choice or if the bar is not high enough."));
-    exerciseList.add(new Exercise(R.drawable.icons8_pushups_100px, "Push ups",
-            "A push-up (or press-up) is a common calisthenics exercise beginning from the prone position, or the front leaning rest position known in the military. By raising and lowering the body using the arms, push-ups exercise the pectoral muscles, triceps, and anterior deltoids. Push-ups are a basic exercise used in civilian athletic training or physical education and commonly in military physical training.",
-            "Person breathes out while pushing the arms straight to lift the body off the floor and back into the plank position."));
-    exerciseList.add(new Exercise(R.drawable.icons8_sit_ups_100px, "Sit ups",
-            "The sit-up (or curl-up) is an abdominal endurance training exercise to strengthen and tone the abdominal muscles. It is similar to a crunch, but sit-ups have a fuller range of motion and condition additional muscles.",
-            "It begins with lying with the back on the floor, typically with the arms across the chest or hands behind the head and the knees bent in an attempt to reduce stress on the back muscles and spine, and then elevating both the upper and lower vertebrae from the floor until everything superior to the buttocks is not touching the ground."));
-    exerciseList.add(new Exercise(R.drawable.icons8_squats_100px, "Squats",
-            "In strength training and fitness, the squat is a compound, full-body exercise that trains primarily the muscles of the thighs, hips and buttocks, hamstrings, as well as strengthening the bones, ligaments and insertion of the tendons throughout the lower body. Squats are considered a vital exercise for increasing the strength and size of the legs as well as developing core strength.",
-            "The movement begins from a standing position. The movement is initiated by moving the hips back and bending the knees and hips to lower the torso and accompanying weight, then returning to the upright position. "));
-
-}
 }

@@ -17,6 +17,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:id="@+id/txtAmount"
+            android:fontFamily="sans-serif-light"
             android:text="Workout time:"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -36,11 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnAdd"
-            android:text="+"
-            android:textSize="30dp"
+            android:id="@+id/btnEasy"
+            android:text="EASY"
             android:textColor="@android:color/white"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="4dp"
@@ -51,15 +50,25 @@
             />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnReduce"
-            android:text="-"
+            android:id="@+id/btnMedium"
+            android:text="MEDIUM"
             android:textColor="@android:color/white"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
+            android:background="@drawable/btnbg"
+            />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnHard"
+            android:text="HARD"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/btnbg"
             />
     </LinearLayout>
@@ -100,7 +109,6 @@
                 android:background="@drawable/btnbg"
                 android:layout_height="50dp"
                 />
-
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnCC"
                 android:text="Calorie calculator"
@@ -117,8 +125,8 @@
         <android.support.v7.widget.AppCompatButton
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/btnCalendar"
-            android:text="Calendar"
+            android:id="@+id/btnAbout"
+            android:text="About"
             android:textColor="@android:color/white"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="4dp"
@@ -126,6 +134,5 @@
             android:background="@drawable/btnbg"
             android:layout_height="50dp"
             />
-
     </LinearLayout>
 </RelativeLayout>
